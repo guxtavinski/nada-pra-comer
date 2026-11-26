@@ -1,56 +1,62 @@
-# Welcome to your Expo app 👋
+# Nada pra comer nessa casa
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Aplicativo mobile de planejamento de refeições feito com **React Native + Expo**. O usuário informa quantas pessoas vão comer, por quantos dias, quanto pretende gastar, o que já tem em casa e suas preferências alimentares. O app monta um cardápio com receitas compatíveis e gera a lista de compras.
 
-## Get started
+Projeto acadêmico da atividade de Programação de App (Desenvolvimento de Aplicativo Mobile).
 
-1. Install dependencies
+## O problema que resolve
 
-   ```bash
-   npm install
-   ```
+Decidir o que cozinhar, comprar só o necessário e não estourar o orçamento toma tempo e gera desperdício. O app une as duas tarefas: sugere o cardápio e já entrega a lista de compras, descontando o que a pessoa tem em casa.
 
-2. Start the app
+## Funcionalidades
 
-   ```bash
-   npx expo start
-   ```
+- Configuração do planejamento: pessoas, dias, refeições e orçamento.
+- Preferências: alimentos que já tem em casa (cards selecionáveis), padrão alimentar (onívoro, vegetariano, vegano), estilo de dieta, alergias e intolerâncias e eletrodomésticos disponíveis.
+- Geração de cardápio considerando todos os filtros e o orçamento.
+- Troca de uma receita específica por outra compatível, sem alterar o resto do cardápio.
+- Detalhes da receita: ingredientes ajustados ao número de pessoas, modo de preparo, custo estimado e informações nutricionais.
+- Lista de compras agrupada por categoria, sem os itens que já estão em casa, com marcação de itens comprados.
 
-In the output, you'll find options to open the app in a
+## Tecnologias
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+- React Native
+- Expo e Expo Router
+- TypeScript
+- StyleSheet
+- Dados locais (receitas em TypeScript, sem API nem banco remoto)
 
-You can start developing by editing the files inside the **src/app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## Como executar
 
-## Get a fresh project
-
-When you're ready, run:
+Pré-requisito: [Node.js](https://nodejs.org) (versão LTS).
 
 ```bash
-npm run reset-project
+git clone https://github.com/guxtavinski/nada-pra-comer.git
+cd nada-pra-comer
+npm install
+npx expo start -c
 ```
 
-This command will move the starter code to the **example** directory and create a blank **src/app** directory where you can start developing.
+Depois, escolha uma opção:
 
-### Other setup steps
+- **Celular:** instale o app **Expo Go** e escaneie o QR code exibido no terminal. Se a rede bloquear a conexão, use `npx expo start --tunnel`.
+- **Navegador:** pressione `w` no terminal.
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+## Estrutura do projeto
 
-## Learn more
+```
+assets/images/receitas/   fotos das receitas
+src/
+  app/                    telas (Expo Router)
+  components/             componentes reutilizáveis
+  context/                estado global do planejamento
+  data/                   receitas e imagens
+  theme/                  cores e espaçamentos
+  types/                  tipos TypeScript
+  utils/                  geração do cardápio e da lista de compras
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+## Como o cardápio é gerado
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+1. As receitas são filtradas por refeição, padrão alimentar, alergias e eletrodomésticos. O estilo de dieta só é relaxado quando não restar nenhuma opção.
+2. O app sorteia as receitas evitando repetições e tenta várias combinações até ficar dentro do orçamento.
+3. A lista de compras soma os ingredientes, ajusta as quantidades ao número de pessoas e remove os itens que o usuário já tem em casa.
