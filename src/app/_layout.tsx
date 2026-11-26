@@ -1,18 +1,28 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { useColorScheme } from 'react-native';
+import { Stack } from 'expo-router';
+import { StatusBar } from 'expo-status-bar';
+import { PlanProvider } from '../context/PlanContext';
+import { colors } from '../theme';
 
-import { AnimatedSplashOverlay } from '@/components/animated-icon';
-import AppTabs from '@/components/app-tabs';
-
-SplashScreen.preventAutoHideAsync();
-
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
+export default function RootLayout() {
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <AnimatedSplashOverlay />
-      <AppTabs />
-    </ThemeProvider>
+    <PlanProvider>
+      <StatusBar style="dark" />
+      <Stack
+        screenOptions={{
+          headerStyle: { backgroundColor: colors.cream },
+          headerTintColor: colors.darkGreen,
+          headerShadowVisible: false,
+          headerTitleStyle: { fontWeight: '700' },
+          contentStyle: { backgroundColor: colors.cream },
+        }}
+      >
+        <Stack.Screen name="index" options={{ headerShown: false }} />
+        <Stack.Screen name="configuracao" options={{ title: 'Configuração' }} />
+        <Stack.Screen name="preferencias" options={{ title: 'Preferências' }} />
+        <Stack.Screen name="cardapio" options={{ title: 'Meu cardápio' }} />
+        <Stack.Screen name="receita/[id]" options={{ title: 'Receita' }} />
+        <Stack.Screen name="lista-compras" options={{ title: 'Lista de compras' }} />
+      </Stack>
+    </PlanProvider>
   );
 }
